@@ -1048,16 +1048,16 @@ For example, to install the latest driver:
 # pkg install x11/nvidia-driver
 ....
 
-The driver will create a kernel module, which needs to be loaded at system startup. Add the following line to [.filename]#/boot/loader.conf#:
+The driver will create a kernel module, which needs to be loaded at system startup. Add it to `kld_list` in `/etc/rc.conf` by executing:
 
-[.programlisting]
+[source,bash]
 ....
-nvidia_load="YES"
+# sysrc kld_list+=nvidia-modeset
 ....
 
 [NOTE]
 ====
-To immediately load the kernel module into the running kernel issue a command like `kldload nvidia`. However, it has been noted that some versions of Xorg will not function properly if the driver is not loaded at boot time. After editing [.filename]#/boot/loader.conf#, a reboot is recommended.
+To immediately load the kernel module into the running kernel issue a command like `kldload nvidia-modeset`.
 ====
 
 With the kernel module loaded, you normally only need to change a single line in [.filename]#xorg.conf# to enable the proprietary driver:
